@@ -2,12 +2,21 @@ package main
 
 import (
 	"fmt"
+	"log"
 
 	"example.com/greetings"
 )
 
 func main() {
-	message := greetings.Hello("Jacob")
+	// 로그 속성 설정
+	log.SetPrefix("greetings.Hello :")
+	log.SetFlags(0);
+
+	message, err := greetings.Hello("")
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	fmt.Println(message)
 } 
 
