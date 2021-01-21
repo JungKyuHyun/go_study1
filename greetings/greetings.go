@@ -3,6 +3,8 @@ package greetings
 import (
 	"errors"
 	"fmt"
+	"math/rand"
+	"time"
 )
 
 func Hello(name string) (string, error) {
@@ -10,8 +12,24 @@ func Hello(name string) (string, error) {
 	if name == "" {
 		return "", errors.New("empty name")
 	}
-	message := fmt.Sprintf("Hi, %v. Welcome!", name)
+	message := fmt.Sprintf(randomFormat(), name)
 	return message, nil
+}
+
+// set ititial value
+// go init은 전역 변수가 초기화된 후 프로그램 시작시 자동으로 함수를 실행
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
+
+func randomFormat() string {
+	// 괄호안에 크기를 생략하여 []string 슬라이스의 기본 배열이 동적으로 크기 조정될 수 있게 함.
+	formats := []string{
+		"Hi, %v. Welcome!",
+		"Great to see you, %v!",
+		"Hail, %v! Well met!",
+	}
+	return formats[rand.Intn(len(formats))]
 }
 
 /*
