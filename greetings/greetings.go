@@ -16,6 +16,19 @@ func Hello(name string) (string, error) {
 	return message, nil
 }
 
+func Hellos(names[] string) (map[string]string, error) {
+	messages := make(map[string]string)
+
+	for _, name := range names {
+		message, err := Hello(name)
+		if err != nil {
+			return nil, err
+		}
+		messages[name] = message
+	}
+	return messages, nil
+}
+
 // set ititial value
 // go init은 전역 변수가 초기화된 후 프로그램 시작시 자동으로 함수를 실행
 func init() {
